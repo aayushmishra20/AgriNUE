@@ -1,0 +1,265 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#0f2f2a;
+color:white;
+}
+
+/* --- GLOBAL NAVBAR STYLING --- */
+.navbar { position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(26, 50, 36, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); z-index: 1000; padding: 0.8rem 0; }
+.nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+.logo { font-size: 1.1rem; font-weight: 700; cursor: pointer; color: #ffffff; }
+.nav-links { display: flex; align-items: center; list-style: none; gap: 1.5rem; }
+.nav-links li a { text-decoration: none; color: #cbd5e1; font-weight: 600; font-size: 0.9rem; transition: color 0.3s ease; white-space: nowrap; }
+.nav-links li a:hover:not(.active-link) { color: var(--color-yellow, #FFD700); }
+.nav-links li a.active-link { background-color: var(--color-yellow, #FFD700); color: #1a1a1a !important; padding: 0.3rem 1rem; border-radius: 20px; font-weight: 700; box-shadow: 0 4px 12px rgba(202, 138, 4, 0.3); transition: all 0.3s ease; }
+
+/* Standard button without the pulse glow */
+.glow-btn { border: 2px solid #3fb927; padding: 0.4rem 1rem; border-radius: 20px; color: #3fb927 !important; font-size: 0.9rem;}
+.hidden { display: none !important; }
+
+
+/* HERO */
+
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 120px;
+background:linear-gradient(120deg,#0f2f2a,#173c36);
+}
+
+.hero-text h1{
+font-size:70px;
+line-height:1.2;
+max-width:700px;
+}
+
+
+/* STORY SECTION */
+
+.story{
+position:relative;
+height:100vh;
+background:url("plant.png") right center no-repeat;
+background-size:contain;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:100px;
+}
+
+.story-overlay{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(15,47,42,0.85);
+}
+
+.story-content{
+position:relative;
+max-width:900px;
+text-align:center;
+font-style:italic;
+}
+
+.story-content h2{
+font-size:40px;
+margin-bottom:40px;
+color: gold;
+}
+/* Create a constrained box for the image */
+.hero-image {
+    flex: 1;
+    max-width: 45%; /* Limits the image to the right side of the screen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Force the actual image to scale down and fit perfectly */
+.hero-image img {
+    width: 120%;
+    height: auto;
+    max-height: 70vh;    /* Prevents the image from being taller than your screen */
+    object-fit: contain; /* CRITICAL: This stops the zooming/cropping effect */
+    
+    /* Optional: Add a nice little drop shadow to make the leaf pop */
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.3));
+}
+.story-content p{
+font-size:22px;
+line-height:1.8;
+margin-bottom:25px;
+}
+
+ 
+
+/* RESEARCH */
+
+.research{
+height:80vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:80px;
+background:#173c36;
+}
+
+.research h2{
+font-size:40px;
+margin-bottom:20px;
+}
+
+.research p{
+max-width:800px;
+font-size:20px;
+line-height:1.7;
+}
+
+/* KNOW US SECTION */
+
+.know-us{
+min-height:90vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:100px 80px;
+background:#0f2f2a;
+}
+
+.know-us h2{
+font-size:40px;
+margin-bottom:30px;
+color:gold;
+}
+
+.know-us h3{
+font-size:26px;
+margin-top:30px;
+margin-bottom:10px;
+color:#7fe0b2;
+}
+
+.know-us p{
+max-width:850px;
+font-size:20px;
+line-height:1.7;
+margin-bottom:15px;
+color:#e2e8f0;
+}
+
+/* CONTACT SECTION */
+
+.contact{
+min-height:80vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:120px 40px;
+background:#173c36;
+}
+
+.contact h2{
+font-size:40px;
+margin-bottom:20px;
+color:gold;
+}
+
+.contact-intro{
+max-width:700px;
+font-size:20px;
+line-height:1.7;
+margin-bottom:60px;
+color:#e2e8f0;
+}
+
+/* CONTACT GRID */
+
+.contact-container{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+gap:30px;
+width:100%;
+max-width:1200px;
+margin:auto;
+}
+
+/* CONTACT CARD */
+
+.contact-box{
+background:#0f2f2a;
+padding:35px 30px;
+border-radius:12px;
+transition:all 0.3s ease;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+width:100%;
+min-height:170px;
+}
+
+/* HOVER EFFECT */
+
+.contact-box:hover{
+transform:translateY(-8px);
+box-shadow:0 15px 35px rgba(0,0,0,0.4);
+}
+
+/* ICON */
+
+.contact-box i{
+font-size:32px;
+margin-bottom:15px;
+color:#7fe0b2;
+}
+
+/* CARD TITLE */
+
+.contact-box h3{
+font-size:20px;
+margin-bottom:10px;
+color:white;
+}
+
+/* CARD TEXT */
+
+.contact-box p{
+font-size:16px;
+line-height:1.6;
+color:#cbd5e1;
+max-width:250px;
+}
+
+/* SCROLL ANIMATION */
+
+.reveal{
+opacity:0;
+transform:translateY(60px);
+transition:all 1s ease;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+}

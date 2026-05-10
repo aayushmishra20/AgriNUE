@@ -1,0 +1,210 @@
+:root {
+    /* Your Original Green Theme */
+    --bg-dark-green: #1a3224; 
+    --card-bg: #e9ecef;
+    --card-bg-light: #f4f4f5; 
+    --text-main: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-muted: #6b7280;
+    
+    /* Status Colors */
+    --color-red: #dc2626;
+    --color-blue: #2563eb;
+    --color-green: #16a34a;
+    --color-yellow: #ca8a04;
+
+    /* Card Design Variables */
+    --border-card: #d1d5db;
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark-green);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 4.5rem 2rem 2rem 2rem; 
+}
+
+/* --- GLOBAL NAVBAR STYLING --- */
+.navbar { position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(26, 50, 36, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); z-index: 1000; padding: 0.8rem 0; }
+.nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+.logo { font-size: 1.1rem; font-weight: 700; cursor: pointer; color: #ffffff; }
+.nav-links { display: flex; align-items: center; list-style: none; gap: 1.5rem; }
+.nav-links li a { text-decoration: none; color: #cbd5e1; font-weight: 600; font-size: 0.9rem; transition: color 0.3s ease; white-space: nowrap; }
+.nav-links li a:hover:not(.active-link) { color: var(--color-yellow); }
+.nav-links li a.active-link { background-color: var(--color-yellow); color: #1a1a1a !important; padding: 0.3rem 1rem; border-radius: 20px; font-weight: 700; box-shadow: 0 4px 12px rgba(202, 138, 4, 0.3); transition: all 0.3s ease; }
+.glow-btn { border: 2px solid #3fb927; padding: 0.4rem 1rem; border-radius: 20px; color: #3fb927 !important; animation: pulse-glow-subtle 3s infinite alternate; font-size: 0.9rem;}
+@keyframes pulse-glow-subtle { 0% { box-shadow: 0 0 5px rgba(63, 185, 39, 0.1); } 100% { box-shadow: 0 0 12px rgba(63, 185, 39, 0.4); } }
+.hidden { display: none !important; }
+
+/* Click effects */
+.footer-btn:active, .theme-btn:active, .glow-btn:active { transform: scale(0.95) !important; background-color: var(--color-yellow) !important; color: #1a1a1a !important; border-color: var(--color-yellow) !important; }
+
+/* --- LAYOUT WRAPPERS & PAGE HEADER --- */
+.app-wrapper { max-width: 1400px; margin: 0 auto; display: block; }
+.top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; color: #ffffff; padding: 0 10px; }
+.header-text h1 { font-size: clamp(1.4rem, 3vw, 1.8rem); font-weight: 800; margin-bottom: 0.2rem; word-wrap: break-word;}
+.header-text p { font-size: 0.95rem; font-weight: 500; opacity: 0.9; }
+.header-actions { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
+.theme-btn { background: #ffffff; color: #000000; border: none; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s; flex-shrink: 0; box-shadow: var(--card-shadow);}
+.theme-btn:hover { transform: scale(1.05); }
+
+/* --- REPORT CARDS & DATA GRIDS --- */
+.dashboard-container { width: 100%; }
+
+/* Card Design Styling */
+.stat-card, .card { 
+    background: var(--card-bg); 
+    border-radius: 12px; 
+    padding: 1.5rem; 
+    color: var(--text-dark);
+    border: 1px solid var(--border-card);
+    box-shadow: var(--card-shadow); 
+    display: flex; 
+    flex-direction: column;
+}
+h3 { font-size: 1.1rem; font-weight: 700; color: #333; margin-bottom: 0.5rem; }
+
+
+/* =========================================
+   NEW GRID LOGIC (3-2-3 Layout for Top Stats)
+========================================== */
+.top-stats-grid { 
+    display: grid; 
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 1.25rem; 
+    margin-bottom: 1.25rem; 
+}
+
+/* Row 1: 3 Cards (Alerts, Weather, Moisture) */
+.top-stats-grid > div:nth-child(1),
+.top-stats-grid > div:nth-child(2),
+.top-stats-grid > div:nth-child(3) { 
+    grid-column: span 2; 
+}
+
+/* Row 2: 2 Cards (Pesticide, pH) */
+.top-stats-grid > div:nth-child(4),
+.top-stats-grid > div:nth-child(5) { 
+    grid-column: span 3; 
+}
+
+/* Row 3: 3 Cards (Fertilizer, HRI, NUE Efficiency) */
+.top-stats-grid > div:nth-child(6),
+.top-stats-grid > div:nth-child(7),
+.top-stats-grid > div:nth-child(8) { 
+    grid-column: span 2; 
+}
+
+/* Height Fix specifically for the NUE Card when in the Top Grid */
+.top-stats-grid .chart-container {
+    height: auto !important; 
+    margin-top: 0.5rem !important;
+    flex-grow: 0;
+}
+
+
+.stat-value { font-size: 1.8rem; font-weight: 700; margin: 0.75rem 0 0.25rem 0; }
+
+/* ---> NEW ADDITION: Force spacing between Weather labels and values <--- */
+#val-temp, #val-hum {
+    margin-top: 6px !important; 
+}
+
+.text-red { color: var(--color-red); }
+.text-blue { color: var(--color-blue); }
+.text-green { color: var(--color-green); font-weight: 600; }
+
+.stat-subtext-container { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+.stat-subtext { font-size: 0.75rem; color: var(--text-muted); font-style: italic; line-height: 1.4; word-wrap: break-word;}
+.stat-subtext:nth-child(even) { padding-left: 12px; border-left: 1px solid rgba(0, 0, 0, 0.1); }
+
+.stat-footer { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-top: 1px solid var(--border-card); 
+    padding-top: 1rem; 
+    margin-top: auto; 
+}
+
+/* EXPANDABLE SECTION STYLING */
+.expand-toggle { display: flex; align-items: center; gap: 4px; color: var(--text-muted); font-size: 0.85rem; font-style: italic; font-weight: 600; cursor: pointer; transition: color 0.2s ease; }
+.expand-toggle:hover { color: var(--text-dark); }
+.expand-toggle i { width: 16px; height: 16px; transition: transform 0.3s ease; }
+.expand-toggle.open i { transform: rotate(180deg); }
+.card-details { max-height: 0; overflow: hidden; transition: all 0.3s ease; font-size: 0.8rem; font-weight: 500; color: #4b5563; }
+.card-details.open { max-height: 100px; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px dashed var(--border-card); }
+.detail-row { display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
+
+
+/* =========================================
+   NEW MAIN GRAPH GRID (3x2 Layout)
+========================================== */
+.main-content-grid { 
+    display: grid; 
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 1.25rem; 
+    align-items: stretch; 
+}
+
+.main-content-grid > .card { 
+    grid-column: span 2; 
+}
+
+.trends-card { display: flex; flex-direction: column; height: 100%; }
+.chart-container { position: relative; flex-grow: 1; height: 220px; width: 100%; margin-top: 1rem; }
+
+
+/* =========================================
+   DARK THEME OVERRIDES FOR REPORT PAGE
+========================================== */
+body.dark-theme {
+    --bg-dark-green: #000000; 
+    --card-bg: #111111;       
+    --card-bg-light: #1a1a1a; 
+    --text-main: #ffffff;
+    --text-dark: #ffffff;     
+    --text-muted: #9ca3af;
+    --border-card: #333333;
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme h3 { color: #ffffff; }
+body.dark-theme #pesticideChart { filter: invert(1) hue-rotate(180deg); }
+body.dark-theme .stat-subtext:nth-child(even) { border-left-color: rgba(255, 255, 255, 0.2); }
+
+#google_translate_element { display: flex; align-items: center; }
+.goog-te-gadget-simple { 
+    background-color: rgba(255, 255, 255, 0.1) !important; 
+    border: none !important; 
+    padding: 0.4rem 0.8rem !important; 
+    margin: 0 !important; 
+    border-radius: 20px !important;
+    height: 36px !important;
+    display: flex !important; 
+    align-items: center !important; 
+    cursor: pointer !important;
+    transition: background-color 0.3s ease, transform 0.2s ease !important;
+}
+.goog-te-gadget-simple:hover { background-color: rgba(255, 255, 255, 0.2) !important; transform: translateY(-2px) !important;}
+.goog-te-gadget-icon, .goog-te-gadget-simple span[style*="border-left"] { display: none !important; }
+.goog-te-gadget-simple .goog-te-menu-value, .goog-te-gadget-simple .goog-te-menu-value span { color: #ffffff !important; font-family: 'Inter', sans-serif !important; font-weight: 600 !important; font-size: 0.85rem !important; text-decoration: none !important; display: flex !important; align-items: center !important; }
+.goog-te-gadget-simple:hover .goog-te-menu-value span { color: var(--color-yellow) !important; }
+.goog-te-gadget-simple .goog-te-menu-value span[aria-hidden="true"] { color: #ffffff !important; font-size: 0.6rem !important; margin-left: 8px !important; }
+.goog-te-menu-frame { box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3) !important; border-radius: 12px !important; border: 1px solid rgba(255, 255, 255, 0.2) !important; }
+body { top: 0px !important; position: static !important; }
+.goog-te-banner-frame { display: none !important; }
+#goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+.goog-te-banner-frame.skiptranslate, .goog-te-banner-frame { display: none !important; }
+body { top: 0px !important; position: static !important; }
+.goog-tooltip { display: none !important; }
+.goog-tooltip:hover { display: none !important; }
+.goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }

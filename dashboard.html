@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AgriNUE Testing.csv</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='home.html'">AgriNUE</div>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="dashboard.html" class="active-link">Dashboard</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="analysis.html">Assistance</a></li>
+
+                <li id="profile-item" class="hidden"><a href="profile.html">Profile</a></li>
+                <li id="login-item"><a href="login.html" class="glow-btn">Login/Sign-up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="app-wrapper">
+
+        <header class="top-header">
+            <div class="header-text">
+                <h1>Welcome back <span id="user-greeting-name">Farmer</span></h1>
+                <p>Here is an overview of your crops and sensors today</p>
+            </div>
+
+            <div class="header-actions">
+                <div id="google_translate_element"></div>
+                
+                <div class="live-clock" id="live-clock">--:-- --</div>
+                <button id="theme-toggle" class="theme-btn">
+                    <i data-lucide="moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard-layout">
+
+            <section class="weather-bar data-card">
+                <div class="weather-primary">
+                    <div class="card-title" style="font-size: 1.4rem;">Weather Today</div>
+                    <i data-lucide="cloud-sun" class="text-yellow weather-icon-small"></i>
+                    <span class="w-temp">28°C</span>
+                    <span class="w-desc">Partly Cloudy <span class="w-loc">• Delhi NCR</span></span>
+                </div>
+                <div class="weather-metrics">
+                    <div class="w-metric"><i data-lucide="droplets"></i> 65% Humidity</div>
+                    <div class="w-metric"><i data-lucide="wind"></i> 14 km/h Wind</div>
+                    <div class="w-metric"><i data-lucide="cloud-rain"></i> 10% Precipitation</div>
+                </div>
+            </section>
+
+            <section class="dashboard-grid">
+                
+                <div class="data-card npk-card">
+                    <div class="status-dot"></div>
+                    <div class="visual-header" style="margin-bottom: 10px;">
+                        <svg viewBox="0 0 64 64" class="farmer-illustration-large">
+                            <circle cx="32" cy="32" r="28" fill="#e0e7ff" />
+                            <g transform="rotate(45 32 32)">
+                                <path d="M26 16 H38 V40 A 6 6 0 0 1 26 40 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" />
+                                <path d="M27 30 H37 V40 A 5 5 0 0 1 27 40 Z" fill="#22c55e" />
+                                <rect x="28" y="12" width="8" height="4" fill="#d97706" rx="1" />
+                                <path d="M34 20 A 2 2 0 0 1 30 24" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" />
+                            </g>
+                        </svg>
+                        <div class="card-title" style="font-size: 1.4rem;">Soil NPK Nutrients Breakdown</div>
+                    </div>
+
+                    <div class="npk-container">
+                        <div class="npk-box blue-box">
+                            <div class="npk-header" style="margin-bottom: 0px;">
+                                <span class="npk-label">Nitrogen (N)</span>
+                            </div>
+                            <div class="gauge-container">
+                                <svg viewBox="0 0 100 55" class="gauge-svg">
+                                    <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" />
+                                    <path class="gauge-fill" id="gauge-n" d="M 10 50 A 40 40 0 0 1 90 50" />
+                                    <path class="gauge-cut-marker" id="limit-min-n" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                                    <path class="gauge-cut-marker" id="limit-max-n" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                                </svg>
+                                <div class="gauge-value-wrapper">
+                                    <span class="card-value" id="val-n">--</span>
+                                    <span class="unit">mg/kg</span>
+                                </div>
+                                <div class="gauge-markers"><span></span><span>Optimal</span><span></span></div>
+                            </div>
+                        </div>
+
+                        <div class="npk-box warning-box">
+                            <div class="npk-header" style="margin-bottom: 0px;">
+                                <span class="npk-label">Phosphorous (P)</span>
+                            </div>
+                            <div class="gauge-container">
+                                <svg viewBox="0 0 100 55" class="gauge-svg">
+                                    <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" />
+                                    <path class="gauge-fill" id="gauge-p" d="M 10 50 A 40 40 0 0 1 90 50" />
+                                    <path class="gauge-cut-marker" id="limit-min-p" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                                    <path class="gauge-cut-marker" id="limit-max-p" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                                </svg>
+                                <div class="gauge-value-wrapper">
+                                    <span class="card-value" id="val-p">--</span>
+                                    <span class="unit">mg/kg</span>
+                                </div>
+                                <div class="gauge-markers"><span></span><span>Optimal</span><span></span></div>
+                            </div>
+                        </div>
+
+                        <div class="npk-box yellow-box">
+                            <div class="npk-header" style="margin-bottom: 0px;">
+                                <span class="npk-label">Potassium (K)</span>
+                            </div>
+                            <div class="gauge-container">
+                                <svg viewBox="0 0 100 55" class="gauge-svg">
+                                    <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" />
+                                    <path class="gauge-fill" id="gauge-k" d="M 10 50 A 40 40 0 0 1 90 50" />
+                                    <path class="gauge-cut-marker" id="limit-min-k" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                                    <path class="gauge-cut-marker" id="limit-max-k" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                                </svg>
+                                <div class="gauge-value-wrapper">
+                                    <span class="card-value" id="val-k">--</span>
+                                    <span class="unit">mg/kg</span>
+                                </div>
+                                <div class="gauge-markers"><span></span><span>Optimal</span><span></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-card">
+                    <div class="status-dot"></div>
+                    <div class="visual-header">
+                        <svg viewBox="0 0 64 64" class="farmer-illustration-large">
+                            <circle cx="32" cy="32" r="28" fill="#cffafe" />
+                            <path d="M12 44 Q 32 34 52 44 V 52 Q 32 60 12 52 Z" fill="#78350f" />
+                            <path d="M32 18 C 32 18 40 28 40 33 C 40 37.4 36.4 41 32 41 C 27.6 41 24 37.4 24 33 C 24 28 32 18 32 18 Z" fill="#3b82f6" />
+                        </svg>
+                        <div class="card-title">Soil Moisture</div>
+                    </div>
+                    <div class="gauge-container">
+                        <svg viewBox="0 0 100 55" class="gauge-svg">
+                            <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-fill" id="gauge-soil" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-cut-marker" id="limit-min-soil" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                            <path class="gauge-cut-marker" id="limit-max-soil" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                        </svg>
+                        <div class="gauge-value-wrapper">
+                            <span class="card-value" id="val-soil-moist">--</span>
+                            <span class="unit">%</span>
+                        </div>
+                        <div class="gauge-markers"><span></span><span>Optimal</span><span></span></div>
+                    </div>
+                </div>
+
+                <div class="data-card">
+                    <div class="status-dot"></div>
+                    <div class="visual-header">
+                        <svg viewBox="0 0 64 64" class="farmer-illustration-large">
+                            <circle cx="32" cy="32" r="28" fill="#dbeafe" />
+                            <path d="M32 12 C32 12 48 32 48 42 C48 50.8 40.8 58 32 58 C23.2 58 16 50.8 16 42 C16 32 32 12 32 12 Z" fill="#3b82f6" />
+                            <path d="M24 42 A 8 8 0 0 1 28 32" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.6" />
+                        </svg>
+                        <div class="card-title">Field Humidity</div>
+                    </div>
+                    <div class="gauge-container">
+                        <svg viewBox="0 0 100 55" class="gauge-svg">
+                            <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-fill" id="gauge-hum" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-cut-marker" id="limit-min-hum" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                            <path class="gauge-cut-marker" id="limit-max-hum" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                        </svg>
+                        <div class="gauge-value-wrapper">
+                            <span class="card-value" id="val-hum">--</span>
+                            <span class="unit">%</span>
+                        </div>
+                        <div class="gauge-markers"><span></span><span>Optimal</span><span></span></div>
+                    </div>
+                </div>
+
+                <div class="data-card">
+                    <div class="status-dot"></div>
+                    <div class="visual-header">
+                        <svg viewBox="0 0 64 64" class="farmer-illustration-large">
+                            <circle cx="32" cy="32" r="28" fill="#d1fae5" />
+                            <path d="M22 46 H42" stroke="#78350f" stroke-width="4" stroke-linecap="round" />
+                            <path d="M32 44 V30" stroke="#22c55e" stroke-width="4" stroke-linecap="round" />
+                            <path d="M32 36 Q24 36 22 28 Q30 24 32 32" fill="#4ade80" />
+                            <path d="M32 34 Q40 34 42 24 Q34 20 32 28" fill="#22c55e" />
+                        </svg>
+                        <div class="card-title">Soil pH Level</div>
+                    </div>
+                    <div class="gauge-container">
+                        <svg viewBox="0 0 100 55" class="gauge-svg">
+                            <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-fill" id="gauge-ph" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-cut-marker" id="limit-min-ph" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                            <path class="gauge-cut-marker" id="limit-max-ph" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                        </svg>
+                        <div class="gauge-value-wrapper">
+                            <span class="card-value" id="val-ph">--</span>
+                            <span class="unit">pH</span>
+                        </div>
+                        <div class="gauge-markers"><span></span><span>Optimal</span><span></span></div>
+                    </div>
+                </div>
+
+                <div class="data-card">
+                    <div class="status-dot"></div>
+                    <div class="visual-header">
+                        <svg viewBox="0 0 64 64" class="farmer-illustration-large">
+                            <circle cx="32" cy="32" r="28" fill="#ffedd5" />
+                            <g transform="rotate(45 32 32)">
+                                <rect x="28" y="14" width="8" height="26" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
+                                <circle cx="32" cy="40" r="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
+                                <circle cx="32" cy="40" r="5" fill="#ef4444" />
+                                <rect x="30" y="24" width="4" height="16" fill="#ef4444" />
+                            </g>
+                        </svg>
+                        <div class="card-title">Field Temperature</div>
+                    </div>
+                    <div class="gauge-container">
+                        <svg viewBox="0 0 100 55" class="gauge-svg">
+                            <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-fill" id="gauge-temp" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-cut-marker" id="limit-min-temp" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                            <path class="gauge-cut-marker" id="limit-max-temp" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                        </svg>
+                        <div class="gauge-value-wrapper">
+                            <span class="card-value" id="val-temp">--</span>
+                            <span class="unit">°C</span>
+                        </div>
+                        <div class="gauge-markers"><span></span><span>Optimal</span><span></span></div>
+                    </div>
+                </div>
+
+                <div class="data-card">
+                    <div class="status-dot"></div>
+                    <div class="visual-header">
+                        <svg viewBox="0 0 64 64" class="farmer-illustration-large">
+                            <circle cx="32" cy="32" r="28" fill="#fef08a" />
+                            <circle cx="32" cy="32" r="14" fill="#facc15" />
+                            <path d="M32 8 V14 M32 50 V56 M8 32 H14 M50 32 H56 M15 15 L19 19 M45 45 L49 49 M15 49 L19 45 M49 15 L45 19" stroke="#eab308" stroke-width="4" stroke-linecap="round" />
+                        </svg>
+                        <div class="card-title">Light Intensity</div>
+                    </div>
+                    <div class="gauge-container">
+                        <svg viewBox="0 0 100 55" class="gauge-svg">
+                            <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-fill" id="gauge-light" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-cut-marker" id="limit-min-light" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                            <path class="gauge-cut-marker" id="limit-max-light" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                        </svg>
+                        <div class="gauge-value-wrapper">
+                            <span class="card-value" id="val-light">--</span>
+                            <span class="unit">Lux</span>
+                        </div>
+                        <div class="gauge-markers"><span></span><span>Optimal</span><span></span></div>
+                    </div>
+                </div>
+
+                <div class="data-card">
+                    <div class="status-dot"></div>
+                    <div class="visual-header">
+                        <i data-lucide="sprout" class="farmer-illustration-large text-green"></i>
+                        <div class="card-title">Plant Mass Gain</div>
+                    </div>
+                    <div class="gauge-container">
+                        <svg viewBox="0 0 100 55" class="gauge-svg">
+                            <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-fill" id="gauge-weight" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-cut-marker" id="limit-min-weight" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                            <path class="gauge-cut-marker" id="limit-max-weight" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                        </svg>
+                        <div class="gauge-value-wrapper">
+                            <span class="card-value" id="val-weight">--</span>
+                            <span class="unit">Kg</span>
+                        </div>
+                        <div class="gauge-markers"><span></span><span>Expected</span><span></span></div>
+                    </div>
+                </div>
+
+                <div class="data-card rgb-card">
+                    <div class="status-dot"></div>
+                    <div class="visual-header" style="margin-bottom: 16px;">
+                        <svg viewBox="0 0 64 64" class="farmer-illustration-large">
+                            <circle cx="32" cy="32" r="28" fill="#f3f4f6" />
+                            <circle cx="32" cy="22" r="12" fill="#ef4444" opacity="0.85" />
+                            <circle cx="23" cy="38" r="12" fill="#22c55e" opacity="0.85" />
+                            <circle cx="41" cy="38" r="12" fill="#3b82f6" opacity="0.85" />
+                        </svg>
+                        <div class="card-title">Crop colour analysis</div>
+                    </div>
+
+                    <div class="color-preview-box">
+                        <div class="swatch-label">Detected Color</div>
+                        <div class="swatch-row">
+                            <div class="color-swatch" id="color-swatch"></div>
+                            <span class="hex-value" id="val-hex">#------</span>
+                        </div>
+                    </div>
+
+                    <div class="rgb-stack">
+                        <div class="rgb-row">
+                            <span class="rgb-label text-red">R</span>
+                            <div class="progress-track">
+                                <div class="progress-fill" id="bar-color-r" style="background-color: #ef4444; width: 0%;"></div>
+                            </div>
+                            <span class="rgb-val" id="val-color-r">--</span>
+                        </div>
+                        <div class="rgb-row">
+                            <span class="rgb-label text-green">G</span>
+                            <div class="progress-track">
+                                <div class="progress-fill" id="bar-color-g" style="background-color: #22c55e; width: 0%;"></div>
+                            </div>
+                            <span class="rgb-val" id="val-color-g">--</span>
+                        </div>
+                        <div class="rgb-row">
+                            <span class="rgb-label text-blue">B</span>
+                            <div class="progress-track">
+                                <div class="progress-fill" id="bar-color-b" style="background-color: #3b82f6; width: 0%;"></div>
+                            </div>
+                            <span class="rgb-val" id="val-color-b">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-card">
+                    <div class="status-dot"></div>
+                    <div class="visual-header">
+                        <svg viewBox="0 0 64 64" class="farmer-illustration-large">
+                            <circle cx="32" cy="32" r="28" fill="#e0f2fe" />
+                            <path d="M36 12 L16 36 H32 L26 54 L50 26 H36 Z" fill="#facc15" stroke="#eab308" stroke-width="2" stroke-linejoin="round" />
+                            <circle cx="48" cy="16" r="2.5" fill="#facc15" />
+                            <circle cx="16" cy="48" r="1.5" fill="#facc15" />
+                        </svg>
+                        <div class="card-title">Soil Electrical Conductivity</div>
+                    </div>
+                    <div class="gauge-container">
+                        <svg viewBox="0 0 100 55" class="gauge-svg">
+                            <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-fill" id="gauge-tds" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-cut-marker" id="limit-min-tds" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                            <path class="gauge-cut-marker" id="limit-max-tds" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                        </svg>
+                        <div class="gauge-value-wrapper">
+                            <span class="card-value" id="val-tds">--</span>
+                            <span class="unit">mS/cm</span>
+                        </div>
+                        <div class="gauge-markers"><span></span><span>Optimal</span><span></span></div>
+                    </div>
+                </div>
+
+                <div class="data-card">
+                    <div class="status-dot"></div>
+                    <div class="visual-header">
+                        <i data-lucide="cloud-fog" class="farmer-illustration-large text-yellow"></i>
+                        <div class="card-title">Gas toxicity meter</div>
+                    </div>
+                    <div class="gauge-container">
+                        <svg viewBox="0 0 100 55" class="gauge-svg">
+                            <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-fill" id="gauge-gas" d="M 10 50 A 40 40 0 0 1 90 50" />
+                            <path class="gauge-cut-marker" id="limit-min-gas" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                            <path class="gauge-cut-marker" id="limit-max-gas" d="M 10 50 A 40 40 0 0 1 90 50"></path>
+                        </svg>
+                        <div class="gauge-value-wrapper">
+                            <span class="card-value" id="val-gas" style="font-size: 1.4rem;">--</span>
+                            <span class="unit">PPM</span>
+                        </div>
+                        <div class="gauge-markers"><span></span><span>Optimal</span><span></span></div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+
+        <footer class="bottom-footer">
+            <div class="footer-btn pill" id="last-updated">Last Updated: Just now</div>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+               pageLanguage: 'en', 
+               includedLanguages: 'hi,bgc,bho,awa,mwr,bn,te,mr,ta,gu,kn,ml,pa,or,as,mai,doi,gom,sat,ur,en',
+               layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+               autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+function hideGoogleTranslateBanner() {
+
+    const bannerFrame = document.querySelector('.goog-te-banner-frame');
+    
+    if (bannerFrame) {
+        bannerFrame.style.display = 'none';
+        bannerFrame.style.visibility = 'hidden';
+        bannerFrame.style.height = '0px';
+    }
+
+    document.body.style.top = '0px';
+    document.documentElement.style.marginTop = '0px';
+}
+
+setInterval(hideGoogleTranslateBanner, 500);
+</script>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

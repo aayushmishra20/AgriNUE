@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AgriNUE Testing.csv</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='home.html'">AgriNUE</div>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="analysis.html">Assistance</a></li>
+                
+                <li id="profile-item" class="hidden"><a href="profile.html" class="active-link">Profile</a></li>
+                <li id="login-item"><a href="login.html" class="glow-btn">Login/Sign-up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="app-wrapper">
+        <div class="profile-container">
+            
+            <div class="profile-header-block">
+                <div>
+                    <h1>Profile Settings</h1>
+                    <p class="header-subtext">Manage your account, farm telemetry, and alert preferences.</p>
+                </div>
+                <div class="header-actions">
+                    <button id="theme-toggle" class="theme-btn">
+                        <i data-lucide="moon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="profile-tabs">
+                <button class="tab-btn active" data-target="tab-personal">Personal Information</button>
+                <button class="tab-btn" data-target="tab-farm">Farm Details</button>
+                <button class="tab-btn" data-target="tab-notifications">Notifications</button>
+            </div>
+
+            <div class="profile-content">
+                
+                <div class="user-card">
+                    <div class="profile-avatar">
+                        <i data-lucide="user" style="width: 60px; height: 60px; color: #6b7280;"></i>
+                    </div>
+                    <div class="user-info">
+                        <h2 id="display-fullname">Loading... <i data-lucide="check-circle-2" class="icon-verified hidden" id="badge-verified"></i></h2>
+                        <p class="member-date" id="display-memberdate">Fetching details...</p>
+                        <p class="verified-status" id="display-status">Verifying...</p>
+                    </div>
+                </div>
+
+                <div id="tab-personal" class="tab-pane active">
+                    <form class="profile-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" id="input-firstname" placeholder="Loading..." readonly class="locked-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" id="input-lastname" placeholder="Loading..." readonly class="locked-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>E-mail Address</label>
+                            <input type="email" id="input-email" placeholder="Loading..." readonly class="locked-input">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Phone Number</label>
+                            <input type="text" id="input-phone" placeholder="Loading..." readonly class="locked-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Location (City / State / Country)</label>
+                            <div class="dropdown-group">
+                                <select id="input-city" disabled class="locked-input"><option>Loading...</option></select>
+                                <select id="input-state" disabled class="locked-input"><option>Loading...</option></select>
+                                <select id="input-country" disabled class="locked-input"><option>Loading...</option></select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" id="edit-profile-btn" class="action-btn edit-btn"><i data-lucide="edit-2"></i> Edit Profile</button>
+                            <button type="button" id="logout-btn" class="action-btn logout-btn"><i data-lucide="log-out"></i> Log Out</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="tab-farm" class="tab-pane">
+                    <form class="profile-form">
+                        <div class="form-group full-width">
+                            <label>Registered Farm Name</label>
+                            <input type="text" id="input-farmname" value="AgriNUE Test Plot Alpha" readonly class="locked-input">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Total Area (Hectares)</label>
+                                <input type="number" id="input-area" value="12.5" readonly class="locked-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Primary Soil Type</label>
+                                <select id="input-soil" disabled class="locked-input">
+                                    <option>Clay Loam</option>
+                                    <option selected>Sandy Loam</option>
+                                    <option>Silt</option>
+                                    <option>Peat</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Current Active Crop</label>
+                                <input type="text" id="input-crop" value="Wheat (Triticum aestivum)" readonly class="locked-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Irrigation System Type</label>
+                                <select id="input-irrigation" disabled class="locked-input">
+                                    <option selected>Automated Drip</option>
+                                    <option>Sprinkler</option>
+                                    <option>Surface / Flood</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Connected IoT Devices</label>
+                            <div class="device-list">
+                                <span class="device-tag"><i data-lucide="wifi"></i> NPK Sensor (Node 1)</span>
+                                <span class="device-tag"><i data-lucide="wifi"></i> Moisture Probe (Node 2)</span>
+                                <span class="device-tag"><i data-lucide="wifi"></i> MQ135 Gas Sensor</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="tab-notifications" class="tab-pane">
+                    <div class="settings-list">
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>Critical Weather Alerts</h3>
+                                <p>Get SMS notifications for storms, frost, or extreme heat.</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>Automated Irrigation Override</h3>
+                                <p>Allow AI to automatically pause pumps if rain is detected.</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>Pest & Disease Warnings</h3>
+                                <p>Receive email alerts when canopy humidity risks fungal growth.</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>Weekly Analytical Report</h3>
+                                <p>Receive a summarized PDF of your farm's performance every Sunday.</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="profile.js"></script>
+</body>
+</html>

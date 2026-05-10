@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AgriNUE Testing.csv</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="analysis.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='home.html'">AgriNUE</div>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="report.html">Report</a></li>
+                <li><a href="analysis.html" class="active-link">Assistance</a></li>
+                
+                <li id="profile-item" class="hidden"><a href="profile.html">Profile</a></li>
+                <li id="login-item"><a href="login.html" class="glow-btn">Login/Sign-up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="app-wrapper">
+        
+        <header class="top-header">
+            <div class="header-text">
+                <h1>Agronomy Assistance & Guidance</h1>
+                <p>Actionable solutions and AI expert advice for your farm</p>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn">
+                    <i data-lucide="moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="assistance-layout">
+            
+            <div class="guidance-column">
+                
+                <div class="data-card priority-card critical">
+                    <div class="card-header-flex">
+                        <div class="card-title"><i data-lucide="test-tube-2" style="color: #ef4444;"></i> Nutrient Lockout Detected</div>
+                        <button class="mark-done-btn"><i data-lucide="check"></i> Mark Done</button>
+                    </div>
+                    <div class="guidance-content">
+                        <h3>High pH Blocking Phosphorus</h3>
+                        <div class="stat-row mt-1" style="border-bottom: none; padding-bottom: 0;">
+                            <span>Soil pH Level: <strong class="text-red">7.5 (Alkaline)</strong></span>
+                            <span>Phosphorus (P): <strong class="text-blue">Adequate (85 mg/kg)</strong></span>
+                        </div>
+                        <p class="small-text mt-1">Your Phosphorus levels are actually fine, but your soil pH is too high, causing a nutrient lockout. The plant roots cannot absorb the existing nutrients.</p>
+                        <div class="action-steps mt-2">
+                            <div class="step"><i data-lucide="ban" class="text-red"></i> <strong>Do Not Fertilize:</strong> Adding more Phosphorus will waste money and cause soil toxicity.</div>
+                            <div class="step"><i data-lucide="flask-conical" class="text-green"></i> <strong>Action Required:</strong> Apply elemental sulfur (15kg/Acre) to lower the pH to 6.5. This will naturally unlock the existing Phosphorus for the roots.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-card priority-card warning">
+                    <div class="card-header-flex">
+                        <div class="card-title"><i data-lucide="layers" style="color: #f59e0b;"></i> Multi-Depth Moisture Analysis</div>
+                        <button class="mark-done-btn"><i data-lucide="check"></i> Acknowledged</button>
+                    </div>
+                    <div class="guidance-content">
+                        <h3>Deep Root Saturation Detected</h3>
+                        
+                        <div class="depth-container mt-1">
+                            <div class="depth-item">
+                                <div class="depth-label"><span>Topsoil (0-10cm)</span> <span class="text-orange font-bold">20% Dry</span></div>
+                                <div class="depth-track"><div class="depth-fill dry" style="width: 20%;"></div></div>
+                            </div>
+                            <div class="depth-item">
+                                <div class="depth-label"><span>Root Zone (15-30cm)</span> <span class="text-blue font-bold">75% Wet</span></div>
+                                <div class="depth-track"><div class="depth-fill wet" style="width: 75%;"></div></div>
+                            </div>
+                        </div>
+
+                        <p class="small-text mt-2">The surface looks dangerously dry, but the deep root zone is highly saturated. Watering now will cause root rot and fungal disease.</p>
+                        <div class="solution-box mt-2" style="border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.1);">
+                            <strong>Recommendation:</strong> Withhold irrigation for 24 hours. This will force the roots to grow deeper in search of water, improving long-term crop drought resilience.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sub-grid">
+                    <div class="data-card advisory-card">
+                        <div class="card-title"><i data-lucide="wind" style="color: #3b82f6;"></i> Chemical Spray Advisory</div>
+                        <div class="guidance-content mt-2">
+                            <h3>Safe Spraying Window</h3>
+                            
+                            <div class="spray-timeline">
+                                <div class="time-block red" title="High Wind"></div>
+                                <div class="time-block red" title="High Wind & Dew"></div>
+                                <div class="time-block green" title="Optimal"></div>
+                                <div class="time-block yellow" title="High Temp"></div>
+                                <div class="time-block yellow" title="High Temp"></div>
+                                <div class="time-block red" title="Incoming Rain"></div>
+                            </div>
+                            <div class="time-labels">
+                                <span>12 AM</span>
+                                <span>4 AM</span>
+                                <span>8 AM</span>
+                                <span>12 PM</span>
+                                <span>4 PM</span>
+                                <span>8 PM</span>
+                            </div>
+
+                            <p class="small-text mt-2">Current high winds will cause chemical drift, wasting money and risking adjacent crops.</p>
+                            <div class="solution-box mt-2">
+                                <strong>AI Logic:</strong> Wait until 8:00 AM tomorrow. Wind speeds will drop below 10km/h and morning dew will have evaporated.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-card advisory-card">
+                        <div class="card-title"><i data-lucide="bug" style="color: #eab308;"></i> Pest Alert System</div>
+                        <div class="guidance-content mt-2">
+                            <div class="stat-row">
+                                <span>Aphid Activity Index:</span>
+                                <span class="text-orange font-bold">Rising</span>
+                            </div>
+                            <p class="small-text mt-1">Slight temp increase and new foliage makes crops highly susceptible to aphids right now.</p>
+                            <div class="solution-box mt-2" style="border-left-color: #eab308; background: rgba(234, 179, 8, 0.1);">
+                                <strong>Action:</strong> Deploy yellow sticky traps across Sector B. Prepare a 2% Neem oil foliar spray for the green window tomorrow.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sub-grid">
+                    <div class="data-card advisory-card">
+                        <div class="card-title"><i data-lucide="sun" style="color: #10b981;"></i> Thermal Growth (GDD)</div>
+                        <div class="guidance-content mt-2">
+                            
+                            <div class="gdd-container">
+                                <svg viewBox="0 0 36 36" class="circular-chart">
+                                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path class="circle green" stroke-dasharray="85, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <text x="18" y="20.35" class="percentage">850</text>
+                                </svg>
+                                <div>
+                                    <div class="stat-row" style="border:none; padding:0;">
+                                        <span class="text-green font-bold">850 / 900 GDD</span>
+                                    </div>
+                                    <p class="small-text" style="margin-top:2px;">Accumulated Heat Units</p>
+                                </div>
+                            </div>
+
+                            <p class="small-text mt-2">Plants grow based on thermal time, not the calendar.</p>
+                            <div class="solution-box mt-2" style="border-left-color: #10b981; background: rgba(16, 185, 129, 0.1);">
+                                <strong>AI Logic:</strong> You are exactly 50 GDD away from the flowering stage. Switch to potassium-heavy fertigation in the next 48 hours.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-card advisory-card info-card">
+                        <div class="card-title"><i data-lucide="wifi-off" style="color: #64748b;"></i> Equipment Health</div>
+                        <div class="guidance-content mt-2">
+                            <div class="stat-row">
+                                <span>Sensor Node 3:</span>
+                                <span class="font-bold" style="color: #ef4444;">Signal Drop</span>
+                            </div>
+                            <p class="small-text mt-1">Moisture probe in Sector C is reporting erratic data fluctuations.</p>
+                            <div class="solution-box mt-2" style="border-left-color: #64748b; background: rgba(100, 116, 139, 0.1);">
+                                <strong>Action:</strong> Probe requires manual cleaning. Remove soil crust from metallic tips and recalibrate.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="chatbot-column-wrapper">
+                <div class="data-card chat-card sticky-bot">
+                    
+                    <div class="chat-header">
+                        <div class="chat-avatar">
+                            <i data-lucide="bot"></i>
+                        </div>
+                        <div class="chat-title-info">
+                            <h2>Agri-Bot Assistant</h2>
+                            <p><span class="online-dot"></span> Online | Ask me anything</p>
+                        </div>
+                    </div>
+
+                    <div class="chat-window" id="chat-window">
+                        <div class="chat-message bot">
+                            <div class="bubble">
+                                Hello! I'm your FarmSafe AI. I have paused your irrigation today to encourage deep root growth.<br><br>Do you need help understanding the Nutrient Lockout, or do you have another question?
+                            </div>
+                            <span class="time-stamp">Just now</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <button class="mic-btn" title="Voice Input"><i data-lucide="mic"></i></button>
+                        <input type="text" id="chat-input" placeholder="Ask about soil, GDD, or spraying...">
+                        <button class="send-btn" id="send-btn"><i data-lucide="send"></i></button>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+       <footer class="bottom-footer">
+            <button class="footer-btn pill" onclick="window.location.href='dashboard.html'">Go back</button>
+            <div class="footer-btn pill" id="last-updated">Last Updated: Just now</div>
+        </footer>
+
+    </div>
+
+    <script src="analysis.js"></script>
+</body>
+</html>

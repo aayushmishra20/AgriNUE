@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detailed Report - AgriNUE Testing.csv</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+    <link rel="stylesheet" href="report.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">AgriNUE</div>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="report.html" class="active-link">Report</a></li>
+                <li><a href="analysis.html">Assistance</a></li>
+                <li id="profile-item" class="hidden"><a href="profile.html">Profile</a></li>
+                <li id="login-item"><a href="login.html" class="glow-btn">Login/Sign-up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="app-wrapper">
+        <header class="top-header">
+            <div class="header-text">
+                <h1>Analytics</h1>
+                <p>Here is a detailed report of your soil health & crop telemetry</p>
+            </div>
+            <div class="header-actions">
+                <div id="google_translate_element"></div>
+                <button id="theme-toggle" class="theme-btn">
+                    <i data-lucide="moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-container">
+            
+            <section class="top-stats-grid">
+                <div class="stat-card">
+                    <h3>Active Alerts</h3>
+                    <div class="stat-value text-red">0</div>
+                    <div class="stat-footer"></div>
+                </div>
+
+                <div class="stat-card">
+                    <h3 style="margin-bottom: 6px;">Weather</h3>
+                    
+                    <!-- Temp and Humidity Split Section -->
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 16px;">
+                        
+                        <!-- Temperature Left Side -->
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-dark); margin-bottom: -5px;">Temperature</span>
+                            <div class="stat-value" id="val-temp" style="margin: 0;">--°C</div>
+                        </div>
+                        
+                        <!-- Thick Vertical Divider -->
+                        <div style="width: 3px; height: 50px; background-color: var(--text-dark); border-radius: 2px;"></div>
+                        
+                        <!-- Humidity Right Side -->
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-dark); margin-bottom: -5px;">Humidity</span>
+                            <div class="stat-value text-blue" id="val-hum" style="margin: 0;">--%</div>
+                        </div>
+
+                    </div>
+
+                    <!-- JS Injects the Green Alert Bars Here -->
+                    <div class="stat-subtext-container" style="display: flex; flex-direction: column; gap: 4px;">
+                    </div>
+                    
+                    <div class="stat-footer"></div>
+                </div>
+                <div class="stat-card">
+                    <h3>Soil Moisture</h3>
+                    <div class="stat-value">--%</div>
+                    <div class="stat-subtext-container"></div>
+                    <div class="stat-footer"></div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Pesticide Usage</h3>
+                    <div class="stat-value text-blue">-- Kg</div>
+                    <div class="stat-subtext-container">
+                        <div class="stat-subtext">• Slightly Low this week</div>
+                        <div class="stat-subtext">• Toxicity: Low Residual Risk</div>
+                    </div>
+                    <div class="stat-footer"></div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Soil pH Level</h3>
+                    <div class="stat-value">--</div>
+                    <div class="stat-subtext-container"></div>
+                    <div class="stat-footer"></div>
+                </div>
+
+                <!-- ADDED NEW CARDS HERE -->
+                <div class="stat-card">
+                    <h3>Fertilizer Usage</h3>
+                    <div class="stat-value text-yellow">-- Kg/ha</div>
+                    <div class="stat-subtext-container">
+                        <div class="stat-subtext">• Based on NUE & soil residuals</div>
+                    </div>
+                    <div class="stat-footer"></div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Health Risk Index</h3>
+                    <div class="stat-value text-red">--</div>
+                    <div class="stat-subtext-container">
+                        <div class="stat-subtext">• Linked to chemical residue</div>
+                    </div>
+                    <div class="stat-footer"></div>
+                </div>
+                
+                <div class="card trends-card">
+                    <h3>NUE Efficiency</h3>
+                    <div class="chart-container" style="display: flex; flex-direction: column; justify-content: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+                            <span style="font-size: 2rem; font-weight: 800; color: var(--text-dark);" id="nue-score-text">--</span>
+                            <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">/ 5.0 Score</span>
+                        </div>
+                        
+                        <div style="width: 100%; height: 12px; background-color: var(--border-card); border-radius: 6px; overflow: hidden; margin-bottom: 16px;">
+                            <div id="nue-bar-fill" style="height: 100%; width: 0%; background-color: var(--color-green); transition: width 1s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.5s ease;"></div>
+                        </div>
+
+                        <div id="nue-alert-container"></div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="main-content-grid">
+                
+                <div class="card trends-card">
+                    <h3>Pesticide Usage Trends</h3>
+                    <div class="chart-container">
+                        <canvas id="pesticideChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- ADDED FERTILIZER TREND CARD HERE -->
+                <div class="card trends-card">
+                    <h3>Fertilizer Usage Trends</h3>
+                    <div class="chart-container">
+                       <canvas id="fertilizerChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card trends-card">
+                    <h3>Soil Organic Carbon (SOC) Trend</h3>
+                    <div class="chart-container">
+                        <canvas id="carbonChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- NUE EFFICIENCY TILE (BAR STYLE) -->
+                
+                <div class="card trends-card">
+                    <h3>Nutrient Distribution (NPK)</h3>
+                    <div class="chart-container" style="display: flex; justify-content: center; align-items: center;">
+                        <canvas id="npkChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card trends-card">
+                    <h3>Resource Usage Efficiency</h3>
+                    <div class="chart-container" style="display: flex; justify-content: center; align-items: center;">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card trends-card">
+                    <h3>Soil Moisture Levels (7 Days)</h3>
+                    <div class="chart-container">
+                        <canvas id="moistureChart"></canvas>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+               pageLanguage: 'en', 
+               includedLanguages: 'hi,bgc,bho,awa,mwr,bn,te,mr,ta,gu,kn,ml,pa,or,as,mai,doi,gom,sat,ur,en',
+               layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+               autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script src="report.js"></script>
+</body>
+</html>
